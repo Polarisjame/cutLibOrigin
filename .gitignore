@@ -1,0 +1,91 @@
+/data/*
+/hdl-benchmarks/*
+/lib/*
+*.log
+!lib/asap7.lib
+!lib/asap7_libertylog.log
+abc.*
+*.aig
+*.bench
+
+*.o
+/abc_so/*
+__pycache__/
+
+# abc ignore
+# ==================================
+# ABC 文件夹专属规则 (Prepend abc/)
+# ==================================
+
+# --- 目录屏蔽 ---
+abc/DebugLib/
+abc/DebugExe/
+abc/DebugExt/
+
+abc/ReleaseLib/
+abc/ReleaseExe/
+abc/ReleaseExt/
+
+abc/_TEST/
+abc/build/
+abc/docs/
+
+# --- 库文件与特定路径 ---
+abc/lib/abc*
+abc/lib/m114*
+abc/lib/bip*
+
+abc/src/ext*
+abc/src/xxx/
+abc/src/aig/au/
+abc/src/aig/ssm/
+abc/src/aig/ddb/
+
+# --- Python 相关 (在 abc 目录下的) ---
+abc/src/python/build
+abc/src/python/bdist
+abc/src/python/pyabc.py
+abc/src/python/pyabc_wrap.*
+
+# --- IDE 配置 ---
+abc/.idea/
+abc/tags
+
+# ==================================
+# 文件类型屏蔽 (使用 ** 递归匹配 abc 下的所有子目录)
+# ==================================
+
+# 临时文件
+abc/**/*~
+abc/**/*.orig
+abc/**/*.rej
+
+# 编译中间产物 (.o 和 .d)
+abc/**/*.[od]
+
+# Windows/VS 工程文件
+abc/**/*.ncb
+abc/**/*.opt
+abc/**/*.plg
+abc/**/*.zip
+abc/**/*.dsw
+abc/**/*.dsp
+abc/**/*.vcproj*
+abc/**/*.sln
+abc/**/*.suo
+
+# ==================================
+# 根目录锚定文件 (原正则转换)
+# ==================================
+
+# 忽略 abc 目录下的 libabc.a (静态库)
+/abc/libabc.a
+
+# 忽略 abc 目录下编译生成的名为 abc 的可执行文件
+/abc/abc
+
+# 其他特定文件
+/abc/arch_flags
+/abc/cmake*
+/abc/CMake*
+/abc/cscope*

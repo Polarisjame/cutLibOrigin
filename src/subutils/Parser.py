@@ -94,7 +94,7 @@ class AigParser:
         self.log(f"{self.abc_path} -q '{abc_script}'")
         try:
             completed = subprocess.run(
-                [self.abc_path, '-q', abc_script],
+                [self.abc_path, '-L', self.proj_dir, '-q', abc_script],
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
                 timeout=timeout,
@@ -235,7 +235,7 @@ class Aig2MapParser:
             supergate_index = cellStruct[cut_rt]['supergateIndex']
 
             if supergate_index == -1:
-                break
+                continue
 
             # extract features for selected cut
             # tt, cut, nVars = cuts[supergate_index]

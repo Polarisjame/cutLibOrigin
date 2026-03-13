@@ -3,6 +3,7 @@ import subprocess
 import threading
 from subutils.Parser import AigParser, Aig2MapParser, DelayParser
 import sys
+import datetime
 
 print(f"Cur PID: {os.getpid()}")
 
@@ -25,10 +26,11 @@ aigmapParser = Aig2MapParser(dataset, './log/abcmap_exec.log')
 delayParser = DelayParser(f'{data_root}/{dataset}','./log/delayLogger.log')
 
 # AigParser
-cnt = 0
+corr_cnt = 0
+false_cnt = 0
 for aig_file in os.listdir(dataset_aig_path):
     if not aig_file.endswith('.aig'):
-        cnt += 1
+        corr_cnt += 1
         print(f"Skip {aig_file} as it is not an AIG file.")
         continue
 
@@ -37,7 +39,7 @@ for aig_file in os.listdir(dataset_aig_path):
     design_save_dir = os.path.join(data_save_dir,design_name)
     if os.path.exists(f'{design_save_dir}/data_2.json'):
             print(f"{design_name} has been executed before")
-            cnt += 1
+            corr_cnt += 1
             # delayParser.process(design_name,data_save_dir)
             continue
     aig_file_parser.log(aig_file_path)
@@ -45,6 +47,10 @@ for aig_file in os.listdir(dataset_aig_path):
     aigmapParser.process(aig_file_path, data_save_dir)
     delayParser.process(design_name,data_save_dir)
 
-    cnt += 1
-    print(f"Finished: {cnt}/{len(os.listdir(dataset_aig_path))}")
+    if os.path.exists(f'{design_save_dir}/data_2.json'):
+        corr_cnt += 1
+        print(f"{datetime.datetime.now()}   Success Finished: {corr_cnt}/{false_cnt}/{len(os.listdir(dataset_aig_path))}")
+    else:
+        false_cnt += 1
+        print(f"{datetime.datetime.now()}   False Finished: {corr_cnt}/{false_cnt}/{len(os.listdir(dataset_aig_path))}")
     

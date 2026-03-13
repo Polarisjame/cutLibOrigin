@@ -1,6 +1,6 @@
 # !/bin/bash
 
-CASE='forgeEDA'
+CASE='iwls2024' # ACE OpenABC iwls2022 iwls2024 forgeEDA
 
 data_root="/home/zhoulingfeng/data/cutLibData/save_json_${CASE}"
 dataset_dir="/data/zhoulingfeng/data_cutLib/save_subgraph"

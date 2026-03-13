@@ -18,26 +18,26 @@ from .preprocess import fit_pls_projection, seed_all, standardize_features
 
 def run(cfg: ExtractCutLibConfig) -> None:
     logger = get_logger()
-    inside_logger = None
+    inside_logger = logger
     try:
         seed_all(cfg.random_seed)
 
         # load openABC-D
-        logger.info("Loading data from %s", cfg.data_path)
+        # logger.info("Loading data from %s", cfg.data_path)
         data_path = f"{cfg.dataset_path}/save_json_OpenABC"
-        x_openabc, x_graph_openabc, y_openabc = ext_utils.load_json_data(data_path)
+        x_openabc, x_graph_openabc, y_openabc = ext_utils.load_json_data(data_path, logger=inside_logger)
         logger.info("Data loaded from openABC-D: %d samples", len(y_openabc))
         # load ACE
         data_path = f"{cfg.dataset_path}/save_json_ACE"
-        x_ace, x_graph_ace, y_ace = ext_utils.load_json_data(data_path)
+        x_ace, x_graph_ace, y_ace = ext_utils.load_json_data(data_path, logger=inside_logger)
         logger.info("Data loaded from ACE: %d samples", len(y_ace))
         # load iwls2022
         data_path = f"{cfg.dataset_path}/save_json_iwls2022"
-        x_iwls, x_graph_iwls, y_iwls = ext_utils.load_json_data(data_path)
+        x_iwls, x_graph_iwls, y_iwls = ext_utils.load_json_data(data_path, logger=inside_logger)
         logger.info("Data loaded from iwls2022: %d samples", len(y_iwls))
         # load iwls2024
         data_path = f"{cfg.dataset_path}/save_json_iwls2024"
-        x_iwls2024, x_graph_iwls2024, y_iwls2024 = ext_utils.load_json_data(data_path)
+        x_iwls2024, x_graph_iwls2024, y_iwls2024 = ext_utils.load_json_data(data_path, logger=inside_logger)
         logger.info("Data loaded from iwls2024: %d samples", len(y_iwls2024))
 
         x_raw = ext_utils.np.concatenate([x_openabc, x_ace, x_iwls, x_iwls2024], axis=0)

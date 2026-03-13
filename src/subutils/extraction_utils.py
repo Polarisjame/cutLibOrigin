@@ -35,7 +35,7 @@ def load_data_from_subg(data_path, logger=None):
     y = y.reshape(-1, 1)
     return x, y
 
-def load_json_data(data_path):
+def load_json_data(data_path, logger=None):
     x = []
     x_graph = []
     y = []
@@ -47,6 +47,8 @@ def load_json_data(data_path):
             for cut_id, cut_struct in data['cell_struct'].items():
                 if cut_struct['supergateIndex'] == -1:
                     continue
+                if logger:
+                    logger.info(f"Loading cut {cut_id} from {json_path}")
                 feats = cut_struct['feats']['feats']
                 subg = cut_struct['feats']['subgraph']
                 label = cut_struct['abc_delay']
